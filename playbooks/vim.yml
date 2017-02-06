@@ -1,0 +1,15 @@
+---
+- name: Setup my VIM
+  hosts: 127.0.0.1
+  vars:
+    rodrigo_config_repo: https://github.com/ratox/vim-ratox
+
+  tasks:
+    - name: Install Vim
+      homebrew: name="vim" state=latest install_options="with-python3"
+
+    - name: Clone vim configuration
+      git: repo={{ rodrigo_config_repo }} dest="~/vim-ratox" recursive=yes version=master
+
+    - name: Create symlink to vim-ratox
+      file: src=~/vim-ratox/vimrc dest=~/.vimrc state=link

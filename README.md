@@ -8,4 +8,5 @@ __You should use Ansible 2+__
 
 ```
 make tmux
+make vim
 ```
