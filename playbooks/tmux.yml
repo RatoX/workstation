@@ -1,0 +1,16 @@
+---
+- hosts: 127.0.0.1
+  name: Configuration tmux
+  tasks:
+    - name: Ensure Tmux 2 is installed
+      homebrew: name=tmux state=latest
+    - name: Install Reattach to user namespace ( copy to clipboard )
+      homebrew: name=reattach-to-user-namespace state=latest
+    - file:
+        path: ~/.tmux/plugins
+        state: directory
+        mode: 0755
+    - name: Install Tmux Plugin
+      git: repo="https://github.com/tmux-plugins/tpm"  dest="~/.tmux/plugins/tpm"
+    - name: Add ~/.tmux.conf file
+      copy: dest="~/.tmux.conf" src="templates/tmux.conf"
